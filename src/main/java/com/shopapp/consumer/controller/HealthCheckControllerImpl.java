@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Slf4j
-public class HelloControllerImpl implements HelloController {
+public class HealthCheckControllerImpl implements HealthCheckController {
 
     @Qualifier("eurekaClient")
     @Autowired
@@ -21,8 +25,10 @@ public class HelloControllerImpl implements HelloController {
     private String appName;
 
     @Override
-    public String sayHello() {
+    public ResponseEntity<?> handleHealthCheck() {
         log.info(discoveryClient.getApplication(appName).getName());
-        return "Hello!";
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "ok");
+        return ResponseEntity.ok(response);
     }
 }
