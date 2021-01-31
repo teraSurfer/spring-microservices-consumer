@@ -8,10 +8,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ProductResponse {
+public class OrderResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Product product;
-    private List<Product> products;
+    private Order order;
+    private List<Order> orders;
     private String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String status;
